@@ -11,6 +11,7 @@ export class TodoComponent extends React.Component {
   }
 
   addTodo = () => {
+    const { text } = this.state;
     const todos = this.state.todos.concat({ content: text, isDone: false });
     this.setState({ todos, text: '' });
   }
@@ -29,6 +30,7 @@ export class TodoComponent extends React.Component {
 
   render() {
     const { text, todos } = this.state;
+    const { navigation } = this.props;
     return (
       <View>
         <TextInput 
@@ -38,6 +40,14 @@ export class TodoComponent extends React.Component {
         />
         <Button onPress={this.addTodo} title="Add" />
         <TodoList todos={todos} doneTodo={this.doneTodo} deleteTodo={this.deleteTodo} />
+        <Button 
+          title="Go to Detail"
+          onPress={() => {
+            navigation.navigate('Details', {
+              text: 'texttexttext'
+            })
+          }}
+        />
       </View>
     )
   }

@@ -26,6 +26,7 @@ export class TodoList extends React.Component {
               {item.content}
             </Text>
             <Button onPress={() => this.deleteTodo(index)} title="delete" />
+            <Button title="go to detail" />
           </View>
         }
       />
