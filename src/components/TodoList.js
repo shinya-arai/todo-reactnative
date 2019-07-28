@@ -6,8 +6,17 @@ export class TodoList extends React.Component {
     this.props.doneTodo(item, index);
   }
 
-  deleteTodo = (index) => {
+  deleteTodo = index => {
     this.props.deleteTodo(index);
+  }
+
+  goDetail = (item, index) => {
+    const { navigation } = this.props;
+    navigation.navigate('Detail', {
+      item,
+      index,
+      updateTodo: this.props.updateTodo
+    });
   }
 
   render() {
@@ -26,7 +35,10 @@ export class TodoList extends React.Component {
               {item.content}
             </Text>
             <Button onPress={() => this.deleteTodo(index)} title="delete" />
-            <Button title="go to detail" />
+            <Button 
+              onPress={() => this.goDetail(item, index)}
+              title="go to detail" 
+            />
           </View>
         }
       />

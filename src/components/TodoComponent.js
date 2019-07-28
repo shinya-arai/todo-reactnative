@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, Button, FlatList } from 'react-native';
+import { View, Text, TextInput, Button, FlatList, Alert } from 'react-native';
 
 import { TodoList } from './TodoList';
 
@@ -12,8 +12,12 @@ export class TodoComponent extends React.Component {
 
   addTodo = () => {
     const { text } = this.state;
-    const todos = this.state.todos.concat({ content: text, isDone: false });
-    this.setState({ todos, text: '' });
+    if (text.length) {
+      const todos = this.state.todos.concat({ content: text, isDone: false });
+      this.setState({ todos, text: '' });
+    } else {
+      Alert.alert('no text')
+    }
   }
 
   doneTodo = (item, index) => {
@@ -28,6 +32,16 @@ export class TodoComponent extends React.Component {
     this.setState({ todos })
   }
 
+  updateTodo = (index, text) => {
+    const { todos } = this.state;
+    const targetTodo = todos.find((todo, i) => i === index);
+    targetTodo.content = text;
+    const updateTodos = todos.map((todo, i) => i === index ? targetTodo : todo)
+
+    this.setState({ todos: updateTodos });
+    this.props.navigation.navigate('Home')
+  }
+
   render() {
     const { text, todos } = this.state;
     const { navigation } = this.props;
@@ -39,14 +53,12 @@ export class TodoComponent extends React.Component {
           value={text}
         />
         <Button onPress={this.addTodo} title="Add" />
-        <TodoList todos={todos} doneTodo={this.doneTodo} deleteTodo={this.deleteTodo} />
-        <Button 
-          title="Go to Detail"
-          onPress={() => {
-            navigation.navigate('Details', {
-              text: 'texttexttext'
-            })
-          }}
+        <TodoList 
+          todos={todos}
+          doneTodo={this.doneTodo} 
+          deleteTodo={this.deleteTodo}
+          updateTodo={this.updateTodo}
+          navigation={navigation}
         />
       </View>
     )
