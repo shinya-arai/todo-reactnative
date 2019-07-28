@@ -25,7 +25,7 @@ export class TodoDetail extends React.Component {
 
     return (
       <View>
-        <Text style={styles.text}>TodoDetail</Text>
+        <Text>TodoDetail</Text>
         <TextInput 
           placeholder="Input Todo!!"
           value={text}

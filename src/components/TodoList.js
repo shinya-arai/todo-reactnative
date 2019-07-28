@@ -1,14 +1,8 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
+import { Container, Content, List, ListItem, Text, Button } from 'native-base';
 
 export class TodoList extends React.Component {
-  doneTodo = (item, index) => {
-    this.props.doneTodo(item, index);
-  }
-
-  deleteTodo = index => {
-    this.props.deleteTodo(index);
-  }
 
   goDetail = (item, index) => {
     const { navigation } = this.props;
@@ -20,28 +14,32 @@ export class TodoList extends React.Component {
   }
 
   render() {
-    const { todos } = this.props;
+    const { todos, doneTodo, deleteTodo } = this.props;
 
     return (
-      <FlatList 
-        data={todos}
-        renderItem={({item, index}) =>
-          <View>
-            <Text 
-              key={index} 
-              onPress={() => this.doneTodo(item, index)}
-              style={item.isDone && styles.doneTodo}
-            >
-              {item.content}
-            </Text>
-            <Button onPress={() => this.deleteTodo(index)} title="delete" />
-            <Button 
-              onPress={() => this.goDetail(item, index)}
-              title="go to detail" 
-            />
-          </View>
-        }
-      />
+      <Container>
+        <Content>
+          <FlatList 
+            data={todos}
+            renderItem={({item, index}) => 
+              <ListItem key={index}>
+                <Text 
+                  onPress={() => doneTodo(item, index)}
+                  style={item.isDone && styles.doneTodo}
+                >
+                  {item.content}
+                </Text>
+                <Button onPress={() => deleteTodo(index)}>
+                  <Text>delete</Text>
+                </Button>
+                <Button onPress={() => this.goDetail(item, index)}>
+                  <Text>go to detail</Text>
+                </Button>
+              </ListItem>
+            }
+          />
+        </Content>
+      </Container>
     );
   }
 }
