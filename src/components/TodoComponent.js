@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, TextInput, Button, FlatList, Alert } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
+import { Container, Content, Form, Item, Input, Button, Text  } from 'native-base';
 
 import { TodoList } from './TodoList';
 
@@ -45,9 +46,10 @@ export class TodoComponent extends React.Component {
   render() {
     const { text, todos } = this.state;
     const { navigation } = this.props;
+
     return (
-      <View>
-        <TextInput 
+      <Container>
+        {/* <TextInput 
           placeholder="Input Todo!!"
           onChangeText={text => this.setState({ text })}
           value={text}
@@ -59,8 +61,41 @@ export class TodoComponent extends React.Component {
           deleteTodo={this.deleteTodo}
           updateTodo={this.updateTodo}
           navigation={navigation}
-        />
-      </View>
+        /> */}
+        <Content>
+          <Form>
+            <Item>
+              <Input 
+                onChangeText={text => this.setState({ text })}
+                value={text}
+              />
+            </Item>
+          </Form>
+          <Content style={{ marginTop: 20 }}>
+            <Button 
+              primary
+              onPress={this.addTodo}
+            >
+              <Text>Add</Text>
+            </Button>
+          </Content>
+          <Content style={{ marginTop: 20 }}>
+            <TodoList 
+              todos={todos}
+              doneTodo={this.doneTodo} 
+              deleteTodo={this.deleteTodo}
+              updateTodo={this.updateTodo}
+              navigation={navigation}
+            />
+          </Content>
+        </Content>
+      </Container>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  // addButton: {
+  //   marginTop: 20,
+  // }
+})
