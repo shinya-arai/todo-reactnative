@@ -3,15 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 import { TodoComponent } from './src/components/TodoComponent';
-import { Sample } from './src/components/Sample';
-
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <TodoComponent />
-//     </View>
-//   );
-// }
+import { TodoDetail } from './src/components/TodoDetail';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,11 +18,11 @@ const styles = StyleSheet.create({
 const AppNavigator = createStackNavigator(
   {
     Home: TodoComponent,
-    Details: Sample
+    Detail: TodoDetail,
   },
-  // {
-  //   initialRouteName: Home
-  // }
+  {
+    initialRouteName: 'Home'
+  }
 )
 
 export default createAppContainer(AppNavigator)
