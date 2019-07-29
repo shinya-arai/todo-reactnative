@@ -1,10 +1,26 @@
 import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { Container, Content, List, ListItem, Text, Button } from 'native-base';
+import { 
+  NavigationState,
+  NavigationParams,
+  NavigationScreenProp
+} from 'react-navigation';
 
-export class TodoList extends React.Component {
+import { TodoComponent } from './TodoComponent';
 
-  goDetail = (item, index) => {
+type Todo = TodoComponent['context'];
+
+interface Props {
+  todos: Todo[],
+  doneTodo: (item: Todo, index: number) => void,
+  deleteTodo: (index: number) => void,
+  navigation: TodoComponent['context']
+}
+
+export class TodoList extends React.Component<Props, {}> {
+
+  private goDetail = (item: Todo, index: number) => {
     const { navigation } = this.props;
     navigation.navigate('Detail', {
       item,
@@ -13,11 +29,7 @@ export class TodoList extends React.Component {
     });
   }
 
-  button = () => {
-    console.log('button')
-  }
-
-  render() {
+  public render() {
     const { todos, doneTodo, deleteTodo } = this.props;
 
     return (
@@ -26,7 +38,7 @@ export class TodoList extends React.Component {
           <FlatList 
             data={todos}
             renderItem={({item, index}) => 
-              <ListItem key={index} button={this.button}>
+              <ListItem key={index} >
                 <Text 
                   onPress={() => doneTodo(item, index)}
                   style={item.isDone && styles.doneTodo}

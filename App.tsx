@@ -4,14 +4,28 @@ import { Container, Text } from 'native-base';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { 
+  createStackNavigator, 
+  createAppContainer,
+  NavigationParams,
+  NavigationScreenProp,
+  NavigationState,
+} from 'react-navigation';
 
 import { TodoComponent } from './src/components/TodoComponent';
 import { TodoDetail } from './src/components/TodoDetail';
 
+interface Props {
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>;
+}
 
-class App extends React.Component {
-  constructor(props) {
+interface State {
+  isReady: boolean;
+}
+
+
+class App extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       isReady: false,

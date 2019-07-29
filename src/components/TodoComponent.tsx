@@ -1,18 +1,38 @@
 import React from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { Container, Content, Form, Item, Input, Button, Text  } from 'native-base';
+import {
+  NavigationState,
+  NavigationParams,
+  NavigationScreenProp
+} from 'react-navigation';
 
 import { TodoList } from './TodoList';
 
-export class TodoComponent extends React.Component {
-  constructor(props) {
+interface Props {
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>;
+}
+
+type Todo = {
+  content: string,
+  isDone: boolean,
+}
+
+interface State {
+  todos: Todo[];
+  text: string;
+}
+
+export class TodoComponent extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = { todos: [], text: '' };
   }
 
-  addTodo = () => {
+  private addTodo = (): void => {
     const { text } = this.state;
+    
     if (text.length) {
       const todos = this.state.todos.concat({ content: text, isDone: false });
       this.setState({ todos, text: '' });
@@ -21,21 +41,21 @@ export class TodoComponent extends React.Component {
     }
   }
 
-  doneTodo = (item, index) => {
+  private doneTodo = (item: Todo, index: number): void => {
     item.isDone = !item.isDone;
     const todos = this.state.todos.map((todo, i) => i === index ? item : todo)
 
     this.setState({ todos })
   }
 
-  deleteTodo = index => {
+  private deleteTodo = (index: number): void => {
     const todos = this.state.todos.filter((todo, i) => i !== index);
     this.setState({ todos })
   }
 
-  updateTodo = (index, text) => {
+  private updateTodo = (index: number, text: string): void => {
     const { todos } = this.state;
-    const targetTodo = todos.find((todo, i) => i === index);
+    const targetTodo = todos.find((todo: Todo, i: number) => i === index);
     targetTodo.content = text;
     const updateTodos = todos.map((todo, i) => i === index ? targetTodo : todo)
 
@@ -43,7 +63,7 @@ export class TodoComponent extends React.Component {
     this.props.navigation.navigate('Home')
   }
 
-  render() {
+  public render() {
     const { text, todos } = this.state;
     const { navigation } = this.props;
 
