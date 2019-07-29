@@ -49,19 +49,6 @@ export class TodoComponent extends React.Component {
 
     return (
       <Container>
-        {/* <TextInput 
-          placeholder="Input Todo!!"
-          onChangeText={text => this.setState({ text })}
-          value={text}
-        />
-        <Button onPress={this.addTodo} title="Add" />
-        <TodoList 
-          todos={todos}
-          doneTodo={this.doneTodo} 
-          deleteTodo={this.deleteTodo}
-          updateTodo={this.updateTodo}
-          navigation={navigation}
-        /> */}
         <Content>
           <Form>
             <Item>

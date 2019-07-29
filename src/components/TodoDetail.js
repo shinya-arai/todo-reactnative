@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Container, Content, Input, Button, Text} from 'native-base';
 
 export class TodoDetail extends React.Component {
   constructor(props) {
@@ -24,24 +25,25 @@ export class TodoDetail extends React.Component {
     const { text } = this.state;
 
     return (
-      <View>
-        <Text>TodoDetail</Text>
-        <TextInput 
-          placeholder="Input Todo!!"
-          value={text}
-          onChangeText={text => this.setState({ text })}
-        />
-        <Button 
-          onPress={this.updateTodo}
-          title="Update Todo"
-        />
-      </View>
+      <Container>
+        <Content>
+          <Text>TodoDetail</Text>
+          <Input 
+            placeholder="Input Todo"
+            value={text}
+            onChangeText={text => this.setState({ text })}
+          />
+          <Button style={styles.button} onPress={this.updateTodo}>
+            <Text>Update Todo</Text>
+          </Button>
+        </Content>
+      </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  text: {
-    marginBottom: 30
+  button: {
+    marginTop: 30
   }
 })
