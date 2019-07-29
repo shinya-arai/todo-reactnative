@@ -13,6 +13,10 @@ export class TodoList extends React.Component {
     });
   }
 
+  button = () => {
+    console.log('button')
+  }
+
   render() {
     const { todos, doneTodo, deleteTodo } = this.props;
 
@@ -22,7 +26,7 @@ export class TodoList extends React.Component {
           <FlatList 
             data={todos}
             renderItem={({item, index}) => 
-              <ListItem key={index}>
+              <ListItem key={index} button={this.button}>
                 <Text 
                   onPress={() => doneTodo(item, index)}
                   style={item.isDone && styles.doneTodo}
